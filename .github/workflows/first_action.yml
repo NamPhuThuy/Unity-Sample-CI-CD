@@ -1,0 +1,11 @@
+name: first_workflow
+on: workflow dispatch
+jobs: 
+  firstjob: 
+    runs on: ubuntu-latest 
+    steps: 
+      # print Hello world
+      - name: Print Greetings
+      # echo is used to display text on console
+        run: echo "Hello World" 
+    
