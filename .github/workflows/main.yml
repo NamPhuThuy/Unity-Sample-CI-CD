@@ -1,0 +1,37 @@
+name: Acquire activation file 
+on: 
+  workflow_dispatch
+jobs: 
+  activation: 
+    name: Request manual activation file 
+    runs on: ubuntu-latest 
+    steps: 
+      # Request manual activation file 
+      - name: Unity - Request Activation File
+        uses: game-ci/unity-request-activation-file@v2.2.0
+            
+      # Activate
+      - name: Unity - Activate
+        uses: game-ci/unity-activate@v2.0.0
+
+      - name: Unity - Test Runner
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: .
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+            
+      # Upload artifact (Unity_v20XX.X.XXXX.alf) 
+      - name: Expose as artifact 
+        uses: actions/upload-artifact@v2 
+        with: 
+          name: ${{ steps.getManual LicenseFile.outputs.filePath }} 
+          path: ${{ steps.getManual License File.outputs.filePath }}
+  test:
+    runs-on: ubuntu-latest
+    steps:  # Steps go here
+      - name: Unity - Test runner
+        uses: game-ci/unity-test-runner@v4.3.1
