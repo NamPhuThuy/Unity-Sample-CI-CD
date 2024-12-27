@@ -6,4 +6,9 @@ jobs:
     steps: 
       - name: Print Greetings
         run: echo "Hello World" 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unity - Builder
+        uses: game-ci/unity-builder@v4.3.0
   
