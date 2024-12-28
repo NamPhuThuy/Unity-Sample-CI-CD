@@ -4,7 +4,7 @@ on:
 jobs: 
   activation: 
     name: Request manual activation file 
-    runs on: ubuntu-latest 
+    runs-on: ubuntu-latest 
     steps: 
       # Request manual activation file 
       - name: Unity - Request Activation File
@@ -25,12 +25,12 @@ jobs:
           projectPath: .
           githubToken: ${{ secrets.GITHUB_TOKEN }}
   build:
-    runs-on: 
+    runs-on: ubuntu-latest
     steps:
       - name: Unity - Builder
-      uses: game-ci/unity-builder@v4.3.0
+        uses: game-ci/unity-builder@v4.3.0
   upload:
-    runs-on:
+    runs-on: ubuntu-latest
     steps:
       # Upload artifact (Unity_v20XX.X.XXXX.alf) 
       - name: Expose as artifact 
