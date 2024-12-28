@@ -8,14 +8,15 @@ jobs:
     steps: 
       # Request manual activation file 
       - name: Unity - Request Activation File
-        uses: game-ci/unity-request-activation-file@v2.2.0
-            
+        uses: game-ci/unity-request-activation-file@v2.2.0 
       # Activate
       - name: Unity - Activate
         uses: game-ci/unity-activate@v2.0.0
-
-      - name: Unity - Test Runner
-        uses: game-ci/unity-test-runner@v4
+  test:
+    runs-on: ubuntu-latest
+    steps:  # Steps go here
+      - name: Unity - Test runner
+        uses: game-ci/unity-test-runner@v4.3.1
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -23,15 +24,18 @@ jobs:
         with:
           projectPath: .
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-            
+  build:
+    runs-on: 
+    steps:
+      - name: Unity - Builder
+      uses: game-ci/unity-builder@v4.3.0
+  upload:
+    runs-on:
+    steps:
       # Upload artifact (Unity_v20XX.X.XXXX.alf) 
       - name: Expose as artifact 
         uses: actions/upload-artifact@v2 
         with: 
           name: ${{ steps.getManual LicenseFile.outputs.filePath }} 
           path: ${{ steps.getManual License File.outputs.filePath }}
-  test:
-    runs-on: ubuntu-latest
-    steps:  # Steps go here
-      - name: Unity - Test runner
-        uses: game-ci/unity-test-runner@v4.3.1
+  
